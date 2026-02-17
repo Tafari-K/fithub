@@ -1,5 +1,7 @@
 import os
 
+venv/ 
+
 DEBUG=True
 
 os.environ.setdefault(
