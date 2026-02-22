@@ -1,5 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import User
+from django.utils import timezone
 
 
 # Create your models here.
@@ -35,6 +36,8 @@ class Product(models.Model):
     is_premium = models.BooleanField(default=False)
     image_url = models.URLField(max_length=1024, null=True, blank=True)
     image = models.ImageField(null=True, blank=True)
+    category = models.ForeignKey(Category, on_delete=models.CASCADE, related_name='products', null=True, blank=True)
+    created_at = models.DateTimeField(default=timezone.now)
 
     class Meta:
         verbose_name_plural = "Products"
@@ -53,7 +56,7 @@ class Review(models.Model):
     user = models.ForeignKey('auth.User', on_delete=models.CASCADE)
     rating = models.PositiveIntegerField()
     comment = models.TextField(blank=True)
-    created_at = models.DateTimeField(auto_now_add=True)
+    created_at = models.DateTimeField(default=timezone.now)
 
     class Meta:
         verbose_name_plural = "Reviews"
