@@ -40,9 +40,22 @@
             </a>
 
             <hr>
+            <hr>
+            {% if product.average_rating %}
+                <p>
+                    <strong>Average Rating:</strong>
+                    ⭐ {{ product.average_rating|floatformat:1 }}/5
+                </p>
+            {% else %}
+                <p>No ratings yet.</p>
+            {% endif %}
+            <hr>
             <h4>Leave a Review</h4>
 
             {% if user.is_authenticated %}
+            {% if has_reviewed %}
+                <p>You have already reviewed this product.</p>
+            {% else %}
                 <form method="post" action="{% url 'add_review' product.pk %}">
                     {% csrf_token %}
                     {{ form.as_p }}
@@ -50,6 +63,7 @@
                         Submit Review
                     </button>
                 </form>
+            {% endif %}
             {% else %}
                 <p>
                     <a href="{% url 'login' %}">Login</a> to leave a review.

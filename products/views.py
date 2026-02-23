@@ -3,6 +3,7 @@ from django.views.generic import ListView, DetailView, CreateView
 
 from products.forms import ReviewForm
 from .models import Product, Review
+from django.db.models import Avg
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.urls import reverse
 
@@ -47,6 +48,16 @@ class ProductDetailView(DetailView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
+
+        if self.request.user.is_authenticated:
+            has_reviewed = Review.objects.filter(
+                product=self.object,
+                user=self.request.user
+            ).exists()
+        else:
+            has_reviewed = False
+
+        context['has_reviewed'] = has_reviewed
         context['form'] = ReviewForm()
         return context
 
@@ -63,3 +74,8 @@ class ReviewCreateView(LoginRequiredMixin, CreateView):
 
     def get_success_url(self):
         return reverse('product_detail', kwargs={'pk': self.kwargs['pk']})
+
+
+@property
+def average_rating(self):
+    return self.reviews.aggregate(avg=Avg('rating'))['avg']
