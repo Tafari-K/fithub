@@ -12,6 +12,23 @@
             <h2>{{ product.name }}</h2>
             <p class="text-muted">£{{ product.price }}</p>
 
+            <hr>
+            <h4>Reviews</h4>
+
+            {% if product.reviews.all %}
+                {% for review in product.reviews.all %}
+                    <div class="mb-3">
+                        <strong>{{ review.user.username }}</strong>
+                        <span>⭐ {{ review.rating }}/5</span>
+                        <p>{{ review.comment }}</p>
+                        <small>{{ review.created_at }}</small>
+                    </div>
+                {% endfor %}
+            {% else %}
+                <p>No reviews yet.</p>
+            {% endif %}
+
+
             {% if product.is_premium %}
                 <span class="badge bg-warning text-dark">Premium Product</span>
             {% endif %}
