@@ -38,6 +38,24 @@
             <a href="{% url 'product_list' %}" class="btn btn-secondary">
                 Back to Products
             </a>
+
+            <hr>
+            <h4>Leave a Review</h4>
+
+            {% if user.is_authenticated %}
+                <form method="post" action="{% url 'add_review' product.pk %}">
+                    {% csrf_token %}
+                    {{ form.as_p }}
+                    <button type="submit" class="btn btn-primary">
+                        Submit Review
+                    </button>
+                </form>
+            {% else %}
+                <p>
+                    <a href="{% url 'login' %}">Login</a> to leave a review.
+                </p>
+            {% endif %}
+
         </div>
     </div>
 </div>
