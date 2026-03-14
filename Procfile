@@ -1,1 +1,1 @@
-web: gunicorn.fithub.wsgi
+web: gunicorn fithub.wsgi
