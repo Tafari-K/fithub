@@ -1,8 +1,76 @@
 {% extends "base.html" %}
 
 {% block content %}
+
 <div class="container mt-5">
-    <h2>Your Cart</h2>
-    <p>Your selected items will appear here.</p>
+    <h2 class="mb-4">Your Cart</h2>
+
+    {% if cart_items %}
+
+        {% for item in cart_items %}
+        <div class="card mb-3 shadow-sm">
+            <div class="row g-0 align-items-center p-3">
+
+                <!-- Product info -->
+                <div class="col-md-6">
+                    <h5 class="mb-1">{{ item.product.name }}</h5>
+                    <p class="mb-0 text-muted">Price: £{{ item.product.price }}</p>
+                </div>
+
+                <!-- Quantity update -->
+                <div class="col-md-3">
+                    <form action="{% url 'update_cart' item.product.id %}" method="POST">
+                        {% csrf_token %}
+                        <input type="number"
+                               name="quantity"
+                               value="{{ item.quantity }}"
+                               min="1"
+                               class="form-control mb-2">
+
+                        <button class="btn btn-primary btn-sm w-100">
+                            Update
+                        </button>
+                    </form>
+                </div>
+
+                <!-- Subtotal -->
+                <div class="col-md-2 text-center">
+                    <strong>£{{ item.subtotal }}</strong>
+                </div>
+
+                <!-- Remove button -->
+                <div class="col-md-1 text-end">
+                    <form action="{% url 'remove_from_cart' item.product.id %}" method="POST">
+                        {% csrf_token %}
+                        <button class="btn btn-danger btn-sm">
+                            X
+                        </button>
+                    </form>
+                </div>
+
+            </div>
+        </div>
+        {% endfor %}
+
+        <!-- Cart total -->
+        <div class="text-end mt-4">
+            <h4>Total: £{{ total }}</h4>
+
+            <a href="#" class="btn btn-success mt-2">
+                Proceed to Checkout
+            </a>
+        </div>
+
+    {% else %}
+
+        <p>Your cart is currently empty.</p>
+
+        <a href="{% url 'product_list' %}" class="btn btn-primary">
+            Continue Shopping
+        </a>
+
+    {% endif %}
+
 </div>
+
 {% endblock %}
