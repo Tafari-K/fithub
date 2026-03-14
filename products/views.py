@@ -2,8 +2,8 @@ from django.shortcuts import render, get_object_or_404
 from django.views.generic import ListView, DetailView, CreateView
 
 from products.forms import ReviewForm
-from .models import Product, Review
-from django.db.models import Avg
+from .models import Product, Review, Category
+from django.db.models import Avg, Q
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.urls import reverse
 
@@ -26,6 +26,29 @@ class ProductListView(ListView):
     template_name = "products/product_list.html"
     context_object_name = "products"
     ordering = ['-created_at']
+
+    def get_queryset(self):
+        queryset = Product.objects.all()
+
+        category = self.request.GET.get('category')
+        search = self.request.GET.get('search')
+
+        if category:
+            queryset = queryset.filter(category_slug=category)
+
+        if search:
+            queryset = queryset.filter(
+                Q(name__icontains=search) |
+                Q(description__icontains=search)
+            )
+
+        return queryset
+
+
+def get_context_data(self, **kwargs):
+    context = super().get_context_data(**kwargs)
+    context['categories'] = Category.objects.all()
+    return context
 
 
 def product_detail(request, pk):
