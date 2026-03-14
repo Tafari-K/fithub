@@ -24,6 +24,7 @@ urlpatterns = [
     path('', RedirectView.as_view(url='products/')),
     path('admin/', admin.site.urls),
     path('products/', include('products.urls')),
+    path('cart/', include('cart.urls')),
 
 ]
 if settings.DEBUG:
