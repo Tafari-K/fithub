@@ -13,6 +13,7 @@ class Order(models.Model):
     country = models.CharField(max_length=40)
     date = models.DateTimeField(auto_now_add=True)
     order_total = models.DecimalField(max_digits=10, decimal_places=2, default=0)
+    stripe_pid = models.CharField(max_length=255, null=True, blank=True)
 
     def __str__(self):
         return f"Order {self.id} - {self.full_name}"
