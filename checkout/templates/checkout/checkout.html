@@ -1,0 +1,43 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container mt-5 mb-5">
+    <h2 class="mb-4">Checkout</h2>
+
+    <div class="row">
+        <!-- Order form -->
+        <div class="col-lg-7">
+            <div class="card p-4 shadow-sm border-0 rounded-4">
+                <h4 class="mb-3">Your Details</h4>
+
+                <form method="post">
+                    {% csrf_token %}
+                    {{ form.as_p }}
+
+                    <button type="submit" class="btn btn-success">
+                        Continue to Payment
+                    </button>
+                </form>
+            </div>
+        </div>
+
+        <!-- Order summary -->
+        <div class="col-lg-5">
+            <div class="card p-4 shadow-sm border-0 rounded-4">
+                <h4 class="mb-3">Order Summary</h4>
+
+                {% for item in cart_items %}
+                    <div class="mb-3">
+                        <strong>{{ item.product.name }}</strong><br>
+                        Qty: {{ item.quantity }}<br>
+                        Subtotal: £{{ item.subtotal }}
+                    </div>
+                    <hr>
+                {% endfor %}
+
+                <h5 class="text-end">Total: £{{ total }}</h5>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
