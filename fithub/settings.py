@@ -60,6 +60,7 @@ INSTALLED_APPS = [
     'community',
     'checkout',
     'cart',
+    'profiles',
 
 ]
 
