@@ -2,11 +2,12 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib import messages
 from products.models import Product
 from .forms import OrderForm
+from .models import Order, OrderItem
 
 
 def checkout(request):
     """
-    Display the checkout page with order form and cart summary
+    Display the checkout page and handle order submission
     """
     cart = request.session.get('cart', {})
 
@@ -27,7 +28,28 @@ def checkout(request):
             'subtotal': subtotal,
         })
 
-    form = OrderForm()
+    if request.method == 'POST':
+        form = OrderForm(request.POST)
+
+        if form.is_valid():
+            order = form.save(commit=False)
+            order.order_total = total
+            order.save()
+
+            for item_id, quantity in cart.items():
+                product = get_object_or_404(Product, pk=item_id)
+                OrderItem.objects.create(
+                    order=order,
+                    product=product,
+                    quantity=quantity,
+                )
+
+            request.session['cart'] = {}
+            messages.success(request, "Order placed successfully!")
+            return redirect('checkout_success', order_id=order.id)
+
+    else:
+        form = OrderForm()
 
     context = {
         'form': form,
@@ -36,3 +58,14 @@ def checkout(request):
     }
 
     return render(request, 'checkout/checkout.html', context)
+
+
+def checkout_success(request, order_id):
+    """
+    Display successful checkout confirmation
+    """
+    order = get_object_or_404(Order, pk=order_id)
+
+    return render(request, 'checkout/checkout_success.html', {
+        'order': order,
+    })
