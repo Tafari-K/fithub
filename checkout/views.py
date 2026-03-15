@@ -75,9 +75,6 @@ def checkout(request):
     return render(request, 'checkout/checkout.html', context)
 
 
-def checkout_success(request, order_id):
-    order = get_object_or_404(Order, pk=order_id)
+def checkout_success(request):
 
-    return render(request, 'checkout/checkout_success.html', {
-        'order': order
-    })
+    return render(request, 'checkout/checkout_success.html')
