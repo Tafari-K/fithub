@@ -15,7 +15,13 @@ document.addEventListener("DOMContentLoaded", function () {
     form.addEventListener("submit", async function (e) {
         e.preventDefault();
 
+        // stop double clicking
+        if (submitButton.disabled) {
+            return;
+        }
+
         submitButton.disabled = true;
+        submitButton.textContent = "Processing...";
         errorDiv.textContent = "";
 
         const { error } = await stripe.confirmPayment({
@@ -28,6 +34,7 @@ document.addEventListener("DOMContentLoaded", function () {
         if (error) {
             errorDiv.textContent = error.message;
             submitButton.disabled = false;
+            submitButton.textContent = "Pay Now";
         }
     });
 });

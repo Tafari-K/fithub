@@ -33,6 +33,7 @@
 <script>
     const stripePublicKey = "{{ stripe_public_key|escapejs }}";
     const clientSecret = "{{ client_secret|escapejs }}";
+    const totalAmount = "{{ total|escapejs }}";
 </script>
 <script src="{% static 'checkout/js/stripe_elements.js' %}"></script>
 {% endblock %}

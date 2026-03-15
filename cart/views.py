@@ -39,10 +39,23 @@ def add_to_cart(request, item_id):
 
     item_id = str(item_id)
 
+    MAX_QUANTITY = 10
+
     if item_id in cart:
-        cart[item_id] += quantity
-        messages.success(request, f'Updated {product.name} quantity in your cart.')
+        new_quantity = cart[item_id] + quantity
+
+        if new_quantity > MAX_QUANTITY:
+            cart[item_id] = MAX_QUANTITY
+            messages.warning(request, f"You can only order up to {MAX_QUANTITY} of {product.name}.")
+        else:
+            cart[item_id] = new_quantity
+            messages.success(request, f'Updated {product.name} quantity in your cart.')
+
     else:
+        if quantity > MAX_QUANTITY:
+            quantity = MAX_QUANTITY
+            messages.warning(request, f"You can only order up to {MAX_QUANTITY} of {product.name}.")
+
         cart[item_id] = quantity
         messages.success(request, f'Added {product.name} to your cart.')
 
