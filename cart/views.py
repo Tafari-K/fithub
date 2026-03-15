@@ -5,9 +5,28 @@ from products.models import Product
 
 def view_cart(request):
     """
-    Display the shopping cart
+    Display the shopping cart contents
     """
-    return render(request, 'cart/cart.html')
+    cart = request.session.get('cart', {})
+    cart_items = []
+    total = 0
+
+    for item_id, quantity in cart.items():
+        product = get_object_or_404(Product, pk=item_id)
+        subtotal = product.price * quantity
+        total += subtotal
+        cart_items.append({
+            'product': product,
+            'quantity': quantity,
+            'subtotal': subtotal,
+        })
+
+    context = {
+        'cart_items': cart_items,
+        'total': total,
+    }
+
+    return render(request, 'cart/cart.html', context)
 
 
 def add_to_cart(request, item_id):
@@ -28,6 +47,8 @@ def add_to_cart(request, item_id):
         messages.success(request, f'Added {product.name} to your cart.')
 
     request.session['cart'] = cart
+    request.session.modified = True
+
     return redirect('view_cart')
 
 
@@ -49,6 +70,7 @@ def update_cart(request, item_id):
         messages.success(request, f'Removed {product.name} from your cart.')
 
     request.session['cart'] = cart
+    request.session.modified = True
     return redirect('view_cart')
 
 
@@ -63,6 +85,7 @@ def remove_from_cart(request, item_id):
 
     cart.pop(item_id, None)
     request.session['cart'] = cart
+    request.session.modified = True
     messages.success(request, f'Removed {product.name} from your cart.')
 
     return redirect('view_cart')
