@@ -1,43 +1,38 @@
 {% extends "base.html" %}
+{% load static %}
 
 {% block content %}
-<div class="container mt-5 mb-5">
-    <h2 class="mb-4">Checkout</h2>
-
+<div class="container py-5">
     <div class="row">
-        <!-- Order form -->
         <div class="col-lg-7">
             <div class="card p-4 shadow-sm border-0 rounded-4">
                 <h4 class="mb-3">Your Details</h4>
 
-                <form method="post">
+                <form method="post" id="payment-form">
                     {% csrf_token %}
                     {{ form.as_p }}
 
-                    <button type="submit" class="btn btn-success">
-                        Continue to Payment
+                    <div class="mb-3">
+                        <label for="payment-element" class="form-label">Card Details</label>
+                        <div id="payment-element" class="mb-2"></div>
+                        <div id="payment-errors" class="text-danger small"></div>
+                    </div>
+
+                    <button type="submit" class="btn btn-success" id="submit-button">
+                        Pay £{{ total }}
                     </button>
                 </form>
             </div>
         </div>
-
-        <!-- Order summary -->
-        <div class="col-lg-5">
-            <div class="card p-4 shadow-sm border-0 rounded-4">
-                <h4 class="mb-3">Order Summary</h4>
-
-                {% for item in cart_items %}
-                    <div class="mb-3">
-                        <strong>{{ item.product.name }}</strong><br>
-                        Qty: {{ item.quantity }}<br>
-                        Subtotal: £{{ item.subtotal }}
-                    </div>
-                    <hr>
-                {% endfor %}
-
-                <h5 class="text-end">Total: £{{ total }}</h5>
-            </div>
-        </div>
     </div>
 </div>
+{% endblock %}
+
+{% block postloadjs %}
+{{ block.super }}
+<script>
+    const stripePublicKey = "{{ stripe_public_key|escapejs }}";
+    const clientSecret = "{{ client_secret|escapejs }}";
+</script>
+<script src="{% static 'checkout/js/stripe_elements.js' %}"></script>
 {% endblock %}

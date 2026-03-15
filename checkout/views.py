@@ -1,8 +1,12 @@
+import stripe
+from django.conf import settings
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib import messages
 from products.models import Product
 from .forms import OrderForm
 from .models import Order, OrderItem
+
+stripe.api_key = settings.STRIPE_SECRET_KEY
 
 
 def checkout(request):
@@ -27,6 +31,14 @@ def checkout(request):
             'quantity': quantity,
             'subtotal': subtotal,
         })
+
+    amount = int(total * 100)
+
+    intent = stripe.PaymentIntent.create(
+        amount=amount,
+        currency='gbp',
+        automatic_payment_methods={'enabled': True},
+    )
 
     if request.method == 'POST':
         form = OrderForm(request.POST)
@@ -55,17 +67,16 @@ def checkout(request):
         'form': form,
         'cart_items': cart_items,
         'total': total,
+        'stripe_public_key': settings.STRIPE_PUBLIC_KEY,
+        'client_secret': intent.client_secret,
     }
 
     return render(request, 'checkout/checkout.html', context)
 
 
-def checkout_success(request, order_id):
+def checkout_success(request):
     """
     Display successful checkout confirmation
     """
-    order = get_object_or_404(Order, pk=order_id)
 
-    return render(request, 'checkout/checkout_success.html', {
-        'order': order,
-    })
+    return render(request, 'checkout/checkout_success.html')
