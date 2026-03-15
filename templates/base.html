@@ -18,7 +18,9 @@
             <a class="nav-link text-white d-inline" href="{% url 'product_list' %}">Products</a>
         </div>
         <div>
-            <a class="nav-link text-white d-inline" href="{% url 'view_cart' %}">Cart</a>
+            <a class="nav-link text-white d-inline" href="{% url 'view_cart' %}">
+                Cart <span class="badge bg-light text-dark">{{ cart_item_count }}</span>
+            </a>
         </div>
     </div>
 </nav>
