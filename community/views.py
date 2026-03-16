@@ -1,11 +1,13 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.decorators import login_required
-from .models import Post
-from .forms import PostForm
+from .models import Post, Comment
+from .forms import PostForm, CommentForm
 
 
 def community_home(request):
     posts = Post.objects.all()
+    form = PostForm()
+    comment_form = CommentForm()
 
     if request.method == "POST":
         if request.user.is_authenticated:
@@ -17,12 +19,11 @@ def community_home(request):
                 return redirect('community_home')
         else:
             return redirect('account_login')
-    else:
-        form = PostForm()
 
     context = {
         'posts': posts,
-        'form': form
+        'form': form,
+        'comment_form': comment_form,
     }
 
     return render(request, 'community/community_home.html', context)
@@ -52,3 +53,18 @@ def delete_post(request, post_id):
         return redirect('community_home')
 
     return render(request, 'community/delete_post.html', {'post': post})
+
+
+@login_required
+def add_comment(request, post_id):
+    post = get_object_or_404(Post, id=post_id)
+
+    if request.method == "POST":
+        form = CommentForm(request.POST)
+        if form.is_valid():
+            comment = form.save(commit=False)
+            comment.post = post
+            comment.author = request.user
+            comment.save()
+
+    return redirect('community_home')
