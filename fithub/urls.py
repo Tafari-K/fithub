@@ -28,6 +28,8 @@ urlpatterns = [
     path('cart/', include('cart.urls')),
     path('checkout/', include('checkout.urls')),
     path('profile/', include('profiles.urls')),
+    path('community/', include('community.urls')),
+    path('', views.community_home, name='community_home'),
 
 ]
 if settings.DEBUG:
