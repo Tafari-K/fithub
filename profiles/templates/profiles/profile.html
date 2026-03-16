@@ -11,4 +11,37 @@
         <button type="submit" class="btn btn-success mt-3">Save Changes</button>
     </form>
 </div>
+<hr class="my-5">
+
+<h3 class="mb-3">Order History</h3>
+
+{% if orders %}
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Order Number</th>
+                <th>Date</th>
+                <th>Total</th>
+            </tr>
+        </thead>
+        <tbody>
+
+        {% for order in orders %}
+
+        <tr>
+            <td>#{{ order.id }}</td>
+            <td>{{ order.date|date:"d M Y" }}</td>
+            <td>£{{ order.order_total }}</td>
+        </tr>
+
+        {% endfor %}
+
+        </tbody>
+    </table>
+
+{% else %}
+
+<p>You have not placed any orders yet.</p>
+
+{% endif %}
 {% endblock %}
