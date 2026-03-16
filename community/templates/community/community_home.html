@@ -28,15 +28,22 @@
 
 {% for post in posts %}
 <div class="card mb-3 p-3">
-    <h4>{{ post.title }}</h4>
-    <p>{{ post.content }}</p>
-    <small>
-        Posted by {{ post.author }} on {{ post.created_at|date:"M d, Y H:i" }}
-    </small>
-</div>
-{% empty %}
-<p>No posts yet.</p>
-{% endfor %}
+        <h4>{{ post.title }}</h4>
+        <p>{{ post.content }}</p>
+        <small>
+            Posted by {{ post.author }} on {{ post.created_at|date:"M d, Y H:i" }}
+        </small>
+
+        {% if user == post.author %}
+        <div class="mt-3">
+            <a href="{% url 'edit_post' post.id %}" class="btn btn-sm btn-outline-secondary">Edit</a>
+            <a href="{% url 'delete_post' post.id %}" class="btn btn-sm btn-outline-danger">Delete</a>
+        </div>
+        {% endif %}
+    </div>
+    {% empty %}
+    <p>No posts yet.</p>
+    {% endfor %}
 
 </div>
 {% endblock %}
