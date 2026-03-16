@@ -1,5 +1,6 @@
 from django.db import models
 from products.models import Product
+from django_countries.fields import CountryField
 
 
 class Order(models.Model):
@@ -10,7 +11,7 @@ class Order(models.Model):
     street_address2 = models.CharField(max_length=80, blank=True)
     town_or_city = models.CharField(max_length=40)
     postcode = models.CharField(max_length=20, blank=True)
-    country = models.CharField(max_length=40)
+    country = CountryField(blank_label='Country', null=True, blank=True)
     date = models.DateTimeField(auto_now_add=True)
     order_total = models.DecimalField(max_digits=10, decimal_places=2, default=0)
     stripe_pid = models.CharField(max_length=255, null=True, blank=True)
