@@ -68,3 +68,29 @@ def add_comment(request, post_id):
             comment.save()
 
     return redirect('community_home')
+
+
+@login_required
+def edit_comment(request, comment_id):
+    comment = get_object_or_404(Comment, id=comment_id, author=request.user)
+
+    if request.method == "POST":
+        form = CommentForm(request.POST, instance=comment)
+        if form.is_valid():
+            form.save()
+            return redirect('community_home')
+    else:
+        form = CommentForm(instance=comment)
+
+    return render(request, 'community/edit_comment.html', {'form': form, 'comment': comment})
+
+
+@login_required
+def delete_comment(request, comment_id):
+    comment = get_object_or_404(Comment, id=comment_id, author=request.user)
+
+    if request.method == "POST":
+        comment.delete()
+        return redirect('community_home')
+
+    return render(request, 'community/delete_comment.html', {'comment': comment})
