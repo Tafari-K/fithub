@@ -1,14 +1,17 @@
 import stripe
 from django.conf import settings
 from django.shortcuts import render, redirect, get_object_or_404
+from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 from products.models import Product
 from .forms import OrderForm
 from .models import Order, OrderItem
+from profiles.models import UserProfile
 
 stripe.api_key = settings.STRIPE_SECRET_KEY
 
 
+@login_required
 def checkout(request):
     """
     Display the checkout page and handle order submission
@@ -62,7 +65,22 @@ def checkout(request):
             return redirect('checkout_success', order_id=order.id)
 
     else:
-        form = OrderForm()
+        try:
+            profile = UserProfile.objects.get(user=request.user)
+
+            form = OrderForm(initial={
+                'full_name': request.user.username,
+                'email': request.user.email,
+                'phone_number': profile.default_phone_number,
+                'street_address1': profile.default_street_address1,
+                'street_address2': profile.default_street_address2,
+                'town_or_city': profile.default_town_or_city,
+                'postcode': profile.default_postcode,
+                'country': profile.default_country,
+            })
+
+        except UserProfile.DoesNotExist:
+            form = OrderForm()
 
     context = {
         'form': form,
