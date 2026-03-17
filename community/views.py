@@ -1,5 +1,6 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.decorators import login_required
+from django.contrib import messages
 from .models import Post, Comment
 from .forms import PostForm, CommentForm
 
@@ -66,6 +67,10 @@ def add_comment(request, post_id):
             comment.post = post
             comment.author = request.user
             comment.save()
+
+            messages.success(request, "Your comment has been submitted and is awaiting approval.")
+        else:
+            messages.error(request, "Something went wrong. Please try again.")
 
     return redirect('community_home')
 
