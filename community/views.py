@@ -77,7 +77,9 @@ def edit_comment(request, comment_id):
     if request.method == "POST":
         form = CommentForm(request.POST, instance=comment)
         if form.is_valid():
-            form.save()
+            comment = form.save(commit=False)
+            comment.approved = False
+            comment.save()
             return redirect('community_home')
     else:
         form = CommentForm(instance=comment)
