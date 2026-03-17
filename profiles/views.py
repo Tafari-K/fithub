@@ -9,7 +9,6 @@ from checkout.models import Order
 
 @login_required
 def profile(request):
-
     profile, created = UserProfile.objects.get_or_create(user=request.user)
 
     if request.method == 'POST':
@@ -18,7 +17,8 @@ def profile(request):
         if form.is_valid():
             form.save()
             messages.success(request, 'Profile updated successfully.')
-
+        else:
+            messages.error(request, 'There was a problem updating your profile. Please check the form and try again.')
     else:
         form = UserProfileForm(instance=profile)
 
