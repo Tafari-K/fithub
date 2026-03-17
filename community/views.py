@@ -17,8 +17,12 @@ def community_home(request):
                 post = form.save(commit=False)
                 post.author = request.user
                 post.save()
+                messages.success(request, "Your post was created successfully.")
                 return redirect('community_home')
+            else:
+                messages.error(request, "There was a problem creating your post. Please check the form and try again.")
         else:
+            messages.error(request, "You must be logged in to create a post.")
             return redirect('account_login')
 
     context = {
@@ -38,7 +42,10 @@ def edit_post(request, post_id):
         form = PostForm(request.POST, instance=post)
         if form.is_valid():
             form.save()
+            messages.success(request, "Your post was updated successfully.")
             return redirect('community_home')
+        else:
+            messages.error(request, "There was a problem updating your post. Please check the form and try again.")
     else:
         form = PostForm(instance=post)
 
@@ -51,6 +58,7 @@ def delete_post(request, post_id):
 
     if request.method == "POST":
         post.delete()
+        messages.success(request, "Your post was deleted successfully.")
         return redirect('community_home')
 
     return render(request, 'community/delete_post.html', {'post': post})
@@ -67,10 +75,9 @@ def add_comment(request, post_id):
             comment.post = post
             comment.author = request.user
             comment.save()
-
             messages.success(request, "Your comment has been submitted and is awaiting approval.")
         else:
-            messages.error(request, "Something went wrong. Please try again.")
+            messages.error(request, "There was a problem submitting your comment. Please try again.")
 
     return redirect('community_home')
 
@@ -85,7 +92,10 @@ def edit_comment(request, comment_id):
             comment = form.save(commit=False)
             comment.approved = False
             comment.save()
+            messages.success(request, "Your comment was updated and is awaiting approval.")
             return redirect('community_home')
+        else:
+            messages.error(request, "There was a problem updating your comment. Please try again.")
     else:
         form = CommentForm(instance=comment)
 
@@ -98,6 +108,7 @@ def delete_comment(request, comment_id):
 
     if request.method == "POST":
         comment.delete()
+        messages.success(request, "Your comment was deleted successfully.")
         return redirect('community_home')
 
     return render(request, 'community/delete_comment.html', {'comment': comment})
