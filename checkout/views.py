@@ -61,8 +61,10 @@ def checkout(request):
                 )
 
             request.session['cart'] = {}
-            messages.success(request, "Order placed successfully!")
+            messages.success(request, "Your order was placed successfully.")
             return redirect('checkout_success', order_id=order.id)
+        else:
+            messages.error(request, "There was a problem with your checkout form. Please check your details and try again.")
 
     else:
         try:
@@ -93,6 +95,8 @@ def checkout(request):
     return render(request, 'checkout/checkout.html', context)
 
 
-def checkout_success(request):
+@login_required
+def checkout_success(request, order_id):
+    order = get_object_or_404(Order, id=order_id)
 
-    return render(request, 'checkout/checkout_success.html')
+    return render(request, 'checkout/checkout_success.html', {'order': order})
