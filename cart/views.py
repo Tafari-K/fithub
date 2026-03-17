@@ -34,12 +34,19 @@ def add_to_cart(request, item_id):
     Add a quantity of the specified product to the shopping cart
     """
     product = get_object_or_404(Product, pk=item_id)
-    quantity = int(request.POST.get('quantity', 1))
     cart = request.session.get('cart', {})
-
     item_id = str(item_id)
-
     MAX_QUANTITY = 10
+
+    try:
+        quantity = int(request.POST.get('quantity', 1))
+    except (TypeError, ValueError):
+        messages.error(request, "Please enter a valid quantity.")
+        return redirect('view_cart')
+
+    if quantity <= 0:
+        messages.error(request, "Quantity must be at least 1.")
+        return redirect('view_cart')
 
     if item_id in cart:
         new_quantity = cart[item_id] + quantity
@@ -50,7 +57,6 @@ def add_to_cart(request, item_id):
         else:
             cart[item_id] = new_quantity
             messages.success(request, f'Updated {product.name} quantity in your cart.')
-
     else:
         if quantity > MAX_QUANTITY:
             quantity = MAX_QUANTITY
@@ -70,17 +76,27 @@ def update_cart(request, item_id):
     Update the quantity of the specified product in the shopping cart
     """
     product = get_object_or_404(Product, pk=item_id)
-    quantity = int(request.POST.get('quantity', 1))
     cart = request.session.get('cart', {})
-
     item_id = str(item_id)
+    MAX_QUANTITY = 10
 
-    if quantity > 0:
-        cart[item_id] = quantity
-        messages.success(request, f'Updated {product.name} quantity.')
-    else:
+    try:
+        quantity = int(request.POST.get('quantity', 1))
+    except (TypeError, ValueError):
+        messages.error(request, "Please enter a valid quantity.")
+        return redirect('view_cart')
+
+    if quantity < 0:
+        messages.error(request, "Quantity cannot be negative.")
+    elif quantity == 0:
         cart.pop(item_id, None)
         messages.success(request, f'Removed {product.name} from your cart.')
+    elif quantity > MAX_QUANTITY:
+        cart[item_id] = MAX_QUANTITY
+        messages.warning(request, f"You can only order up to {MAX_QUANTITY} of {product.name}.")
+    else:
+        cart[item_id] = quantity
+        messages.success(request, f'Updated {product.name} quantity.')
 
     request.session['cart'] = cart
     request.session.modified = True
