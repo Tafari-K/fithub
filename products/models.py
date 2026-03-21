@@ -1,6 +1,4 @@
 from django.db import models
-from django.contrib.auth.models import User
-from django.core.validators import MinValueValidator, MaxValueValidator
 from django.utils import timezone
 
 
@@ -46,23 +44,3 @@ class Product(models.Model):
 
     def __str__(self):
         return self.name
-
-
-class Review(models.Model):
-    """
-    Model representing a review for a product left by authenticated users.
-    """
-    product = models.ForeignKey(Product, on_delete=models.CASCADE,
-                                related_name='reviews')
-    user = models.ForeignKey('auth.User', on_delete=models.CASCADE)
-    rating = models.IntegerField(validators=[MinValueValidator(1), MaxValueValidator(5)])
-    comment = models.TextField(blank=True)
-    created_at = models.DateTimeField(default=timezone.now)
-
-    class Meta:
-        verbose_name_plural = "Reviews"
-        ordering = ['-created_at']
-        unique_together = ('product', 'user')
-
-    def __str__(self):
-        return f'{self.product.name} by {self.user.username}'

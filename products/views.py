@@ -1,11 +1,8 @@
+from django.db.models import Q
 from django.shortcuts import render, get_object_or_404
-from django.views.generic import ListView, DetailView, CreateView
+from django.views.generic import ListView, DetailView
 
-from products.forms import ReviewForm
-from .models import Product, Review, Category
-from django.db.models import Avg, Q
-from django.contrib.auth.mixins import LoginRequiredMixin
-from django.urls import reverse
+from .models import Product, Category
 
 
 def product_list(request):
@@ -34,7 +31,7 @@ class ProductListView(ListView):
         search = self.request.GET.get('search')
 
         if category:
-            queryset = queryset.filter(category_slug=category)
+            queryset = queryset.filter(category__slug=category)
 
         if search:
             queryset = queryset.filter(
@@ -44,11 +41,10 @@ class ProductListView(ListView):
 
         return queryset
 
-
-def get_context_data(self, **kwargs):
-    context = super().get_context_data(**kwargs)
-    context['categories'] = Category.objects.all()
-    return context
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['categories'] = Category.objects.all()
+        return context
 
 
 def product_detail(request, pk):
@@ -68,37 +64,3 @@ class ProductDetailView(DetailView):
     model = Product
     template_name = "products/product_detail.html"
     context_object_name = "product"
-
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-
-        if self.request.user.is_authenticated:
-            has_reviewed = Review.objects.filter(
-                product=self.object,
-                user=self.request.user
-            ).exists()
-        else:
-            has_reviewed = False
-
-        context['has_reviewed'] = has_reviewed
-        context['form'] = ReviewForm()
-        return context
-
-
-class ReviewCreateView(LoginRequiredMixin, CreateView):
-    model = Review
-    form_class = ReviewForm
-
-    def form_valid(self, form):
-        product = get_object_or_404(Product, pk=self.kwargs['pk'])
-        form.instance.product = product
-        form.instance.user = self.request.user
-        return super().form_valid(form)
-
-    def get_success_url(self):
-        return reverse('product_detail', kwargs={'pk': self.kwargs['pk']})
-
-
-@property
-def average_rating(self):
-    return self.reviews.aggregate(avg=Avg('rating'))['avg']
