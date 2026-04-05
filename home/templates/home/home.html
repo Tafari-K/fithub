@@ -3,11 +3,12 @@
 
 {% block content %}
 
+<!-- HERO -->
 <section class="hero-section d-flex align-items-center text-white">
     <div class="container text-center text-md-start">
         <div class="row">
             <div class="col-md-6">
-                <h1 class="display-4 fw-bold mb-3">
+                <h1 class="display-3 fw-bold mb-3">
                     Train Smarter With FITHUB
                 </h1>
                 <p class="lead mb-4">
@@ -28,42 +29,56 @@
     </div>
 </section>
 
-<div class="container py-5">
-    <div class="row text-center mb-4">
+<!-- FEATURES -->
+<section class="container py-5">
+    <div class="row text-center mb-5">
         <div class="col">
-            <h2>Why Choose FITHUB?</h2>
+            <h2 class="fw-bold">Why Choose FITHUB?</h2>
             <p class="text-muted">Everything you need in one place for your fitness journey.</p>
         </div>
     </div>
 
     <div class="row g-4">
+
         <div class="col-md-4">
-            <div class="card h-100 shadow-sm">
-                <div class="card-body">
-                    <h3 class="h5">Premium Membership</h3>
-                    <p>Unlock exclusive plans and premium guidance with monthly membership.</p>
-                </div>
+            <div class="card h-100 shadow-sm text-center p-4">
+                <i class="fa-solid fa-dumbbell fa-2x mb-3 text-warning"></i>
+                <h3 class="h5 fw-bold">Premium Membership</h3>
+                <p>Unlock exclusive training plans and structured guidance tailored to your goals.</p>
             </div>
         </div>
 
         <div class="col-md-4">
-            <div class="card h-100 shadow-sm">
-                <div class="card-body">
-                    <h3 class="h5">Fitness Products</h3>
-                    <p>Browse quality products to support your training and recovery goals.</p>
-                </div>
+            <div class="card h-100 shadow-sm text-center p-4">
+                <i class="fa-solid fa-cart-shopping fa-2x mb-3 text-warning"></i>
+                <h3 class="h5 fw-bold">Fitness Products</h3>
+                <p>Browse high-quality products designed to support your training and recovery.</p>
             </div>
         </div>
 
         <div class="col-md-4">
-            <div class="card h-100 shadow-sm">
-                <div class="card-body">
-                    <h3 class="h5">Community Support</h3>
-                    <p>Stay motivated, explore content, and keep progressing with FITHUB.</p>
-                </div>
+            <div class="card h-100 shadow-sm text-center p-4">
+                <i class="fa-solid fa-users fa-2x mb-3 text-warning"></i>
+                <h3 class="h5 fw-bold">Community Support</h3>
+                <p>Stay motivated, connect with others, and keep progressing with FITHUB.</p>
             </div>
         </div>
+
     </div>
-</div>
+</section>
+
+<!-- MEMBERSHIP CTA -->
+<section class="bg-dark text-white py-5">
+    <div class="container text-center">
+        <h2 class="fw-bold mb-3">Unlock Premium Fitness Plans</h2>
+        <p class="mb-4">
+            Join FITHUB Premium for just £9.99/month and take your training to the next level.
+        </p>
+
+        <a href="{% url 'membership_pricing' %}" class="btn btn-orange btn-lg">
+            View Membership
+        </a>
+    </div>
+</section>
 
 {% endblock %}

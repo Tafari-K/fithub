@@ -69,3 +69,20 @@ body {
 .hero-section p {
     color: #ddd;
 }
+
+.card {
+    border: none;
+    transition: 0.3s;
+}
+
+.card:hover {
+    transform: translateY(-5px);
+}
+
+.bg-dark {
+    background-color: #111 !important;
+}
+
+.text-warning {
+    color: #f57c00 !important;
+}
