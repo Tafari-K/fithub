@@ -1,42 +1,110 @@
 {% extends "base.html" %}
 
 {% block content %}
-<div class="container my-5">
+
+<!-- HERO / INTRO -->
+<section class="bg-dark text-white text-center py-5">
+    <div class="container">
+        <h1 class="display-4 fw-bold mb-3">FITHUB Premium</h1>
+        <p class="lead mb-4">
+            Unlock your full potential with structured fitness plans and exclusive content.
+        </p>
+    </div>
+</section>
+
+<!-- PRICING CARD -->
+<section class="container py-5">
     <div class="row justify-content-center">
-        <div class="col-md-8 col-lg-6">
-            <div class="card shadow-sm border-0 text-center">
-                <div class="card-body p-5">
-                    <h1 class="mb-3">FITHUB Premium Membership</h1>
-                    <h2 class="text-primary mb-4">
-                        £9.99<span class="fs-6 text-muted">/month</span>
-                    </h2>
+        <div class="col-md-6">
 
-                    <p class="mb-4">
-                        Unlock premium fitness content and get access to exclusive plans.
-                    </p>
+            <div class="card shadow-lg border-0 text-center p-4">
 
-                    <ul class="list-unstyled mb-4">
-                        <li class="mb-2"> Access to exclusive fitness plans</li>
-                        <li class="mb-2"> Premium workout content</li>
-                        <li class="mb-2"> Subscriber-only fitness guidance</li>
-                        <li class="mb-2"> Cancel anytime</li>
-                    </ul>
+                <h2 class="fw-bold mb-3">£9.99<span class="fs-6 text-muted"> /month</span></h2>
+                <p class="text-muted mb-4">Cancel anytime. No hidden fees.</p>
 
-                    {% if user.is_authenticated %}
-                        <form action="{% url 'create_subscription_checkout' %}" method="POST">
-                            {% csrf_token %}
-                            <button type="submit" class="btn btn-dark btn-lg">
-                                Subscribe Now
-                            </button>
-                        </form>
-                    {% else %}
-                        <a href="{% url 'account_login' %}" class="btn btn-dark btn-lg">
-                            Log in to Subscribe
-                        </a>
-                    {% endif %}
-                </div>
+                <ul class="list-unstyled mb-4 text-start">
+                    <li class="mb-2">🏋️‍♂️ Structured training programs</li>
+                    <li class="mb-2">🔥 Fat loss & muscle building plans</li>
+                    <li class="mb-2">📈 Progress-focused guidance</li>
+                    <li class="mb-2">📱 Access anytime, anywhere</li>
+                </ul>
+
+                {% if user.is_authenticated %}
+                    <form action="{% url 'create_subscription_checkout' %}" method="POST">
+                        {% csrf_token %}
+                        <button type="submit" class="btn btn-orange btn-lg w-100">
+                            Start Membership
+                        </button>
+                    </form>
+                {% else %}
+                    <a href="{% url 'account_login' %}" class="btn btn-orange btn-lg w-100">
+                        Log in to Subscribe
+                    </a>
+                {% endif %}
+
             </div>
+
         </div>
     </div>
-</div>
+</section>
+
+<!-- VALUE SECTION -->
+<section class="container py-5">
+    <div class="row text-center mb-4">
+        <div class="col">
+            <h2 class="fw-bold">What You Get</h2>
+            <p class="text-muted">Designed to help you stay consistent and see results.</p>
+        </div>
+    </div>
+
+    <div class="row g-4">
+
+        <div class="col-md-4">
+            <div class="card h-100 shadow-sm text-center p-4">
+                <i class="fa-solid fa-dumbbell fa-2x mb-3 text-warning"></i>
+                <h3 class="h5 fw-bold">Training Plans</h3>
+                <p>Follow structured plans designed for real results and progression.</p>
+            </div>
+        </div>
+
+        <div class="col-md-4">
+            <div class="card h-100 shadow-sm text-center p-4">
+                <i class="fa-solid fa-fire fa-2x mb-3 text-warning"></i>
+                <h3 class="h5 fw-bold">Fat Loss Focus</h3>
+                <p>Burn fat effectively with proven routines and guidance.</p>
+            </div>
+        </div>
+
+        <div class="col-md-4">
+            <div class="card h-100 shadow-sm text-center p-4">
+                <i class="fa-solid fa-chart-line fa-2x mb-3 text-warning"></i>
+                <h3 class="h5 fw-bold">Track Progress</h3>
+                <p>Stay accountable and measure your improvement over time.</p>
+            </div>
+        </div>
+
+    </div>
+</section>
+
+<!-- FINAL CTA -->
+<section class="bg-dark text-white text-center py-5">
+    <div class="container">
+        <h2 class="fw-bold mb-3">Start Your Fitness Journey Today</h2>
+        <p class="mb-4">Join FITHUB Premium and take control of your training.</p>
+
+        {% if user.is_authenticated %}
+            <form action="{% url 'create_subscription_checkout' %}" method="POST">
+                {% csrf_token %}
+                <button type="submit" class="btn btn-orange btn-lg">
+                    Subscribe Now
+                </button>
+            </form>
+        {% else %}
+            <a href="{% url 'account_login' %}" class="btn btn-orange btn-lg">
+                Get Started
+            </a>
+        {% endif %}
+    </div>
+</section>
+
 {% endblock %}
