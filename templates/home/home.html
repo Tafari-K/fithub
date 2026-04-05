@@ -1,0 +1,77 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container py-5 text-center">
+    <h1 class="display-5 fw-bold mb-3">Welcome to FitHub</h1>
+    <p class="lead mb-4">
+        Train smarter, shop better, and unlock premium fitness content.
+    </p>
+
+    <div class="d-flex justify-content-center gap-3 flex-wrap mb-5">
+        <a href="{% url 'product_list' %}" class="btn btn-dark btn-lg">Shop Products</a>
+        <a href="{% url 'membership_pricing' %}" class="btn btn-outline-dark btn-lg">View Membership</a>
+    </div>
+</div>
+
+<div class="container pb-5">
+    <div class="row text-center mb-4">
+        <div class="col">
+            <h2>Why Choose FitHub?</h2>
+            <p class="text-muted">Everything you need in one place for your fitness journey.</p>
+        </div>
+    </div>
+
+    <div class="row g-4 mb-5">
+        <div class="col-md-4">
+            <div class="card h-100 shadow-sm">
+                <div class="card-body">
+                    <h3 class="h5">Premium Membership</h3>
+                    <p>Unlock exclusive plans and premium guidance with monthly membership.</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card h-100 shadow-sm">
+                <div class="card-body">
+                    <h3 class="h5">Fitness Products</h3>
+                    <p>Browse quality products to support your training and recovery goals.</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card h-100 shadow-sm">
+                <div class="card-body">
+                    <h3 class="h5">Community Support</h3>
+                    <p>Join the community, explore content, and stay motivated on your journey.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row text-center mb-4">
+        <div class="col">
+            <h2>Featured Products</h2>
+        </div>
+    </div>
+
+    <div class="row g-4">
+        {% for product in featured_products %}
+            <div class="col-sm-6 col-lg-3">
+                <div class="card h-100 shadow-sm">
+                    {% if product.image %}
+                        <img src="{{ product.image.url }}" class="card-img-top" alt="{{ product.name }}">
+                    {% endif %}
+                    <div class="card-body text-center">
+                        <h3 class="h6">{{ product.name }}</h3>
+                        <p class="mb-0">£{{ product.price }}</p>
+                    </div>
+                </div>
+            </div>
+        {% empty %}
+            <div class="col text-center">
+                <p>No featured products available yet.</p>
+            </div>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}
