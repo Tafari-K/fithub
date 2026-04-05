@@ -1,0 +1,69 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block content %}
+
+<section class="hero-section d-flex align-items-center text-white">
+    <div class="container text-center text-md-start">
+        <div class="row">
+            <div class="col-md-6">
+                <h1 class="display-4 fw-bold mb-3">
+                    Train Smarter With FITHUB
+                </h1>
+                <p class="lead mb-4">
+                    Premium fitness plans, quality products, and a community built to keep you moving.
+                </p>
+
+                <div class="d-flex gap-3 flex-wrap">
+                    <a href="{% url 'product_list' %}" class="btn btn-orange btn-lg">
+                        Shop Products
+                    </a>
+
+                    <a href="{% url 'membership_pricing' %}" class="btn btn-outline-light btn-lg">
+                        Join Membership
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<div class="container py-5">
+    <div class="row text-center mb-4">
+        <div class="col">
+            <h2>Why Choose FITHUB?</h2>
+            <p class="text-muted">Everything you need in one place for your fitness journey.</p>
+        </div>
+    </div>
+
+    <div class="row g-4">
+        <div class="col-md-4">
+            <div class="card h-100 shadow-sm">
+                <div class="card-body">
+                    <h3 class="h5">Premium Membership</h3>
+                    <p>Unlock exclusive plans and premium guidance with monthly membership.</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-4">
+            <div class="card h-100 shadow-sm">
+                <div class="card-body">
+                    <h3 class="h5">Fitness Products</h3>
+                    <p>Browse quality products to support your training and recovery goals.</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-4">
+            <div class="card h-100 shadow-sm">
+                <div class="card-body">
+                    <h3 class="h5">Community Support</h3>
+                    <p>Stay motivated, explore content, and keep progressing with FITHUB.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}
