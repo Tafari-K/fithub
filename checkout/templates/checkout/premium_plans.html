@@ -1,60 +1,110 @@
 {% extends "base.html" %}
+{% load static %}
 
 {% block content %}
-<div class="container my-5">
-    <div class="text-center mb-5">
-        <h1>Premium Fitness Plans</h1>
-        <p class="lead">Exclusive training content for FITHUB Premium members.</p>
-    </div>
 
+<!-- HERO -->
+<section class="bg-dark text-white text-center py-5">
+    <div class="container">
+        <h1 class="display-4 fw-bold mb-3">Premium Fitness Plans</h1>
+        <p class="lead">
+            Exclusive training content available only to FITHUB members.
+        </p>
+    </div>
+</section>
+
+<!-- PLANS -->
+<section class="container py-5">
     <div class="row g-4">
+
+        <!-- PLAN 1 -->
         <div class="col-md-6">
             <div class="card h-100 shadow-sm">
+                <img src="{% static 'images/workout.jpg' %}" class="card-img-top" alt="Beginner workout plan">
                 <div class="card-body">
-                    <h3 class="card-title">Beginner Fat Loss Plan</h3>
+                    <h3 class="card-title fw-bold">Beginner Fat Loss Plan</h3>
+
+                    <p class="text-muted mb-2">4 Weeks • 4x per week</p>
+
                     <p class="card-text">
-                        A structured 4-week plan designed to improve fitness, burn calories,
+                        A structured plan designed to improve fitness, burn calories,
                         and build consistency.
                     </p>
+
+                    <button class="btn btn-orange w-100">Start Plan</button>
                 </div>
             </div>
         </div>
 
+        <!-- PLAN 2 -->
         <div class="col-md-6">
             <div class="card h-100 shadow-sm">
+                <img src="{% static 'images/gym.jpg' %}" class="card-img-top" alt="Strength training plan">
                 <div class="card-body">
-                    <h3 class="card-title">Strength Builder Plan</h3>
+                    <h3 class="card-title fw-bold">Strength Builder Plan</h3>
+
+                    <p class="text-muted mb-2">6 Weeks • Progressive overload</p>
+
                     <p class="card-text">
-                        A progressive training programme focused on core lifts, form,
-                        and weekly strength gains.
+                        Focus on compound lifts, form, and building strength week by week.
                     </p>
+
+                    <button class="btn btn-orange w-100">Start Plan</button>
                 </div>
             </div>
         </div>
 
+        <!-- PLAN 3 -->
         <div class="col-md-6">
             <div class="card h-100 shadow-sm">
+                <img src="{% static 'images/home.jpg' %}" class="card-img-top" alt="Home workout plan">
                 <div class="card-body">
-                    <h3 class="card-title">Home Workout Plan</h3>
+                    <h3 class="card-title fw-bold">Home Workout Plan</h3>
+
+                    <p class="text-muted mb-2">No equipment needed</p>
+
                     <p class="card-text">
-                        No gym? No problem. A premium home-based routine for flexibility,
-                        endurance, and strength.
+                        Train effectively from home with a structured routine for flexibility and endurance.
                     </p>
+
+                    <button class="btn btn-orange w-100">Start Plan</button>
                 </div>
             </div>
         </div>
 
+        <!-- PLAN 4 -->
         <div class="col-md-6">
             <div class="card h-100 shadow-sm">
+                <img src="{% static 'images/nutrition.jpg' %}" class="card-img-top" alt="Nutrition plan">
                 <div class="card-body">
-                    <h3 class="card-title">Nutrition and Recovery Guide</h3>
+                    <h3 class="card-title fw-bold">Nutrition & Recovery Guide</h3>
+
+                    <p class="text-muted mb-2">Fuel your progress</p>
+
                     <p class="card-text">
-                        Guidance on meal planning, hydration, sleep, and recovery to support
-                        your training results.
+                        Learn how to optimise your diet, hydration, and recovery for better results.
                     </p>
+
+                    <button class="btn btn-orange w-100">View Guide</button>
                 </div>
             </div>
         </div>
+
     </div>
-</div>
+</section>
+
+<!-- CTA -->
+<section class="bg-dark text-white text-center py-5">
+    <div class="container">
+        <h2 class="fw-bold mb-3">Stay Consistent. See Results.</h2>
+        <p class="mb-4">
+            Keep pushing forward with FITHUB Premium.
+        </p>
+
+        <a href="{% url 'profile' %}" class="btn btn-orange btn-lg">
+            View Your Profile
+        </a>
+    </div>
+</section>
+
 {% endblock %}
