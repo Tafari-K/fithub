@@ -100,3 +100,7 @@ def checkout_success(request, order_id):
     order = get_object_or_404(Order, id=order_id)
 
     return render(request, 'checkout/checkout_success.html', {'order': order})
+
+
+def membership_pricing(request):
+    return render(request, 'checkout/membership_pricing.html')

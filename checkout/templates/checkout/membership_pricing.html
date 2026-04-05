@@ -1,0 +1,38 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block content %}
+<div class="container my-5">
+    <div class="row justify-content-center">
+        <div class="col-md-8 col-lg-6">
+            <div class="card shadow-sm border-0 text-center">
+                <div class="card-body p-5">
+                    <h1 class="mb-3">FITHUB Premium Membership</h1>
+                    <h2 class="text-primary mb-4">£9.99<span class="fs-6 text-muted">/month</span></h2>
+
+                    <p class="mb-4">
+                        Unlock premium fitness content and take your training to the next level.
+                    </p>
+
+                    <ul class="list-unstyled mb-4">
+                        <li class="mb-2"> Access to exclusive fitness plans</li>
+                        <li class="mb-2"> Premium workout content</li>
+                        <li class="mb-2"> Subscriber-only fitness guidance</li>
+                        <li class="mb-2"> Cancel anytime</li>
+                    </ul>
+
+                    {% if user.is_authenticated %}
+                        <a href="#" class="btn btn-dark btn-lg">
+                            Subscribe Now
+                        </a>
+                    {% else %}
+                        <a href="{% url 'account_login' %}" class="btn btn-dark btn-lg">
+                            Log in to Subscribe
+                        </a>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
