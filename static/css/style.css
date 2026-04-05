@@ -131,3 +131,21 @@ form p textarea:focus {
     border-color: #f57c00;
     box-shadow: 0 0 0 0.2rem rgba(245, 124, 0, 0.15);
 }
+
+.card img {
+    height: 220px;
+    object-fit: cover;
+    transition: 0.3s;
+}
+
+.card:hover img {
+    transform: scale(1.05);
+}
+
+.card {
+    border: none;
+}
+
+.card-footer {
+    background: transparent;
+}
