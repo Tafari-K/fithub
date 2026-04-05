@@ -5,7 +5,7 @@ from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 from products.models import Product
 from .forms import OrderForm
-from .models import Order, OrderItem
+from .models import Order, OrderItem, Subscription
 from profiles.models import UserProfile
 from django.http import HttpResponseRedirect
 from django.urls import reverse
@@ -140,3 +140,18 @@ def create_subscription_checkout(request):
 
 def subscription_success(request):
     return render(request, "checkout/subscription_success.html")
+
+
+@login_required
+def premium_plans(request):
+    try:
+        subscription = request.user.subscription
+    except Subscription.DoesNotExist:
+        messages.error(request, "You need an active membership to access premium content.")
+        return redirect('membership_pricing')
+
+    if not subscription.membership_active:
+        messages.error(request, "You need an active membership to access premium content.")
+        return redirect('membership_pricing')
+
+    return render(request, 'checkout/premium_plans.html')
