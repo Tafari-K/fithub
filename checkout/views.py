@@ -7,6 +7,8 @@ from products.models import Product
 from .forms import OrderForm
 from .models import Order, OrderItem
 from profiles.models import UserProfile
+from django.http import HttpResponseRedirect
+from django.urls import reverse
 
 stripe.api_key = settings.STRIPE_SECRET_KEY
 
@@ -104,3 +106,37 @@ def checkout_success(request, order_id):
 
 def membership_pricing(request):
     return render(request, 'checkout/membership_pricing.html')
+
+
+@login_required
+def create_subscription_checkout(request):
+    if request.method != "POST":
+        return HttpResponseRedirect(reverse("membership_pricing"))
+
+    session = stripe.checkout.Session.create(
+        mode="subscription",
+        payment_method_types=["card"],
+        customer_email=request.user.email,
+        line_items=[
+            {
+                "price": settings.STRIPE_PRICE_ID,
+                "quantity": 1,
+            }
+        ],
+        metadata={
+            "user_id": str(request.user.id),
+            "username": request.user.username,
+        },
+        success_url=request.build_absolute_uri(
+            reverse("subscription_success")
+        ) + "?session_id={CHECKOUT_SESSION_ID}",
+        cancel_url=request.build_absolute_uri(
+            reverse("membership_pricing")
+        ),
+    )
+
+    return HttpResponseRedirect(session.url)
+
+
+def subscription_success(request):
+    return render(request, "checkout/subscription_success.html")

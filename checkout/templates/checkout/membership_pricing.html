@@ -1,5 +1,4 @@
 {% extends "base.html" %}
-{% load static %}
 
 {% block content %}
 <div class="container my-5">
@@ -8,10 +7,12 @@
             <div class="card shadow-sm border-0 text-center">
                 <div class="card-body p-5">
                     <h1 class="mb-3">FITHUB Premium Membership</h1>
-                    <h2 class="text-primary mb-4">£9.99<span class="fs-6 text-muted">/month</span></h2>
+                    <h2 class="text-primary mb-4">
+                        £9.99<span class="fs-6 text-muted">/month</span>
+                    </h2>
 
                     <p class="mb-4">
-                        Unlock premium fitness content and take your training to the next level.
+                        Unlock premium fitness content and get access to exclusive plans.
                     </p>
 
                     <ul class="list-unstyled mb-4">
@@ -22,9 +23,12 @@
                     </ul>
 
                     {% if user.is_authenticated %}
-                        <a href="#" class="btn btn-dark btn-lg">
-                            Subscribe Now
-                        </a>
+                        <form action="{% url 'create_subscription_checkout' %}" method="POST">
+                            {% csrf_token %}
+                            <button type="submit" class="btn btn-dark btn-lg">
+                                Subscribe Now
+                            </button>
+                        </form>
                     {% else %}
                         <a href="{% url 'account_login' %}" class="btn btn-dark btn-lg">
                             Log in to Subscribe
