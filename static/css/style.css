@@ -149,3 +149,16 @@ form p textarea:focus {
 .card-footer {
     background: transparent;
 }
+
+.card {
+    border: none;
+    transition: 0.3s;
+}
+
+.card:hover {
+    transform: translateY(-5px);
+}
+
+textarea {
+    resize: none;
+}
