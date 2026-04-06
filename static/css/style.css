@@ -1,58 +1,54 @@
+/* ========================================
+   GLOBAL STYLES
+======================================== */
+
 body {
-            font-family: Arial, sans-serif;
-        }
+    font-family: Arial, sans-serif;
+}
 
-        /* Navbar */
-        .navbar {
-            background-color: #111 !important;
-        }
 
-        .navbar-brand {
-            font-weight: bold;
-            letter-spacing: 1px;
-        }
+/* ========================================
+   NAVBAR
+======================================== */
 
-        .nav-link {
-            color: #fff !important;
-            transition: 0.3s;
-        }
+.navbar {
+    background-color: #111 !important;
+}
 
-        .nav-link:hover {
-            color: #f57c00 !important;
-        }
+.navbar-brand {
+    font-weight: bold;
+    letter-spacing: 1px;
+}
 
-        /* Buttons */
-        .btn-orange {
-            background-color: #f57c00;
-            color: #fff;
-            border: none;
-        }
+.nav-link {
+    color: #fff !important;
+    transition: 0.3s;
+}
 
-        .btn-orange:hover {
-            background-color: #e56f00;
-        }
+.nav-link:hover {
+    color: #f57c00 !important;
+}
 
-        /* Footer */
-        footer {
-            background-color: #111;
-            color: #fff;
-        }
 
-        footer a {
-            color: #ccc;
-            text-decoration: none;
-        }
+/* ========================================
+   BUTTONS
+======================================== */
 
-        footer a:hover {
-            color: #f57c00;
-        }
+.btn-orange {
+    background-color: #f57c00;
+    color: #fff;
+    border: none;
+}
 
-        .footer-icon {
-            font-size: 1.2rem;
-            margin-right: 10px;
-        }
+.btn-orange:hover {
+    background-color: #e56f00;
+}
 
-/* HERO SECTION */
+
+/* ========================================
+   HERO SECTION
+======================================== */
+
 .hero-section {
     height: 90vh;
     background: linear-gradient(
@@ -70,6 +66,11 @@ body {
     color: #ddd;
 }
 
+
+/* ========================================
+   CARDS
+======================================== */
+
 .card {
     border: none;
     transition: 0.3s;
@@ -79,30 +80,25 @@ body {
     transform: translateY(-5px);
 }
 
-.bg-dark {
-    background-color: #111 !important;
-}
-
-.text-warning {
-    color: #f57c00 !important;
-}
-
 .card img {
-    height: 200px;
+    height: 220px;
     object-fit: cover;
-    filter: brightness(0.9);
-}
-.card img {
     transition: 0.3s;
+    filter: brightness(0.9);
 }
 
 .card:hover img {
     transform: scale(1.05);
 }
 
-.bg-light {
-    background-color: #f8f9fa !important;
+.card-footer {
+    background: transparent;
 }
+
+
+/* ========================================
+   FORMS
+======================================== */
 
 form p {
     margin-bottom: 1rem;
@@ -132,33 +128,47 @@ form p textarea:focus {
     box-shadow: 0 0 0 0.2rem rgba(245, 124, 0, 0.15);
 }
 
-.card img {
-    height: 220px;
-    object-fit: cover;
-    transition: 0.3s;
-}
-
-.card:hover img {
-    transform: scale(1.05);
-}
-
-.card {
-    border: none;
-}
-
-.card-footer {
-    background: transparent;
-}
-
-.card {
-    border: none;
-    transition: 0.3s;
-}
-
-.card:hover {
-    transform: translateY(-5px);
-}
-
 textarea {
     resize: none;
+}
+
+
+/* ========================================
+   FOOTER
+======================================== */
+
+footer {
+    background-color: #111;
+    color: #fff;
+}
+
+footer a {
+    color: #ccc;
+    text-decoration: none;
+}
+
+footer a:hover {
+    color: #f57c00;
+}
+
+.footer-icon {
+    font-size: 1.2rem;
+    margin-right: 10px;
+}
+
+
+/* ========================================
+   UTILITY CLASSES
+======================================== */
+
+.bg-dark {
+    background-color: #111 !important;
+}
+
+.bg-light {
+    background-color: #f8f9fa !important;
+}
+
+.text-warning {
+    color: #f57c00 !important;
 }

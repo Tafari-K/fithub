@@ -12,8 +12,9 @@
 
 <!-- FILTER -->
 <section class="container py-4">
-    <form method="GET" class="row g-3">
+    <h2 class="fw-bold mb-3">Filter Products</h2>
 
+    <form method="GET" class="row g-3">
         <div class="col-md-4">
             <select name="category" class="form-select">
                 <option value="">All Categories</option>
@@ -39,33 +40,28 @@
                 Filter Products
             </button>
         </div>
-
     </form>
 </section>
 
 <!-- PRODUCTS -->
 <section class="container pb-5">
-    <div class="row g-4">
+    <h2 class="fw-bold mb-4">Available Products</h2>
 
+    <div class="row g-4">
         {% for product in products %}
             <div class="col-md-4">
-
                 <div class="card h-100 shadow-sm">
-
                     {% if product.image %}
                         <img src="{{ product.image.url }}" class="card-img-top" alt="{{ product.name }}">
                     {% endif %}
 
                     <div class="card-body text-center">
-
-                        <h5 class="fw-bold">{{ product.name }}</h5>
-
+                        <h3 class="fw-bold">{{ product.name }}</h3>
                         <p class="mb-2 fw-semibold">£{{ product.price }}</p>
 
                         {% if product.is_premium %}
                             <span class="badge bg-warning text-dark mb-2">Premium</span>
                         {% endif %}
-
                     </div>
 
                     <div class="card-footer bg-white border-0 text-center">
@@ -73,9 +69,7 @@
                             View Product
                         </a>
                     </div>
-
                 </div>
-
             </div>
         {% empty %}
             <div class="text-center">
@@ -83,7 +77,6 @@
                 <a href="{% url 'product_list' %}" class="btn btn-orange">Refresh</a>
             </div>
         {% endfor %}
-
     </div>
 </section>
 
