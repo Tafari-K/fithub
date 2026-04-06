@@ -36,8 +36,8 @@ body {
 
 .btn-orange {
     background-color: #f57c00;
-    color: #fff;
-    border: none;
+    color: #111;
+    font-weight: 600;
 }
 
 .btn-orange:hover {
@@ -156,6 +156,10 @@ footer a:hover {
     margin-right: 10px;
 }
 
+.hero-subtext {
+    color: #f57c00;
+    font-weight: 500;
+}
 
 /* ========================================
    UTILITY CLASSES
