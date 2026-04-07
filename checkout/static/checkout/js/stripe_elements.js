@@ -15,7 +15,6 @@ document.addEventListener("DOMContentLoaded", function () {
     form.addEventListener("submit", async function (e) {
         e.preventDefault();
 
-        // stop double clicking
         if (submitButton.disabled) {
             return;
         }
@@ -24,17 +23,18 @@ document.addEventListener("DOMContentLoaded", function () {
         submitButton.textContent = "Processing...";
         errorDiv.textContent = "";
 
-        const { error } = await stripe.confirmPayment({
+        const result = await stripe.confirmPayment({
             elements,
-            confirmParams: {
-                return_url: window.location.origin + "/checkout/success/"
-            }
+            redirect: "if_required",
         });
 
-        if (error) {
-            errorDiv.textContent = error.message;
+        if (result.error) {
+            errorDiv.textContent = result.error.message;
             submitButton.disabled = false;
-            submitButton.textContent = "Pay Now";
+            submitButton.textContent = "Pay £" + totalAmount;
+            return;
         }
+
+        form.submit();
     });
 });
