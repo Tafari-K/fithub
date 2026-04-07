@@ -8,11 +8,7 @@
         <!-- IMAGE -->
         <div class="col-md-6">
             {% if product.image %}
-                <img src="{{ product.image.url }}" alt="{{ product.name }}">
-            {% elif product.image_url %}
-                <img src="{{ product.image_url }}" alt="{{ product.name }}">
-            {% else %}
-                <img src="https://via.placeholder.com/300x300?text=No+Image" alt="No image available">
+                <img src="{{ product.image.url }}" class="card-img-top" alt="{{ product.name }}">
             {% endif %}
         </div>
 

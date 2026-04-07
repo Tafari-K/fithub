@@ -53,10 +53,6 @@
                 <div class="card h-100 shadow-sm">
                     {% if product.image %}
                         <img src="{{ product.image.url }}" class="card-img-top" alt="{{ product.name }}">
-                    {% elif product.image_url %}
-                        <img src="{{ product.image_url }}" class="card-img-top" alt="{{ product.name }}">
-                    {% else %}
-                        <img src="https://via.placeholder.com/300x300?text=No+Image" class="card-img-top" alt="No image available">
                     {% endif %}
 
                     <div class="card-body text-center">
