@@ -1,0 +1,45 @@
+{% extends "base.html" %}
+
+{% block content %}
+<section class="checkout-success-section py-5">
+  <div class="container">
+    <div class="success-card mx-auto text-center p-4 p-md-5">
+
+      {% if confirmation %}
+
+        <h2 class="mb-3 text-success">Email Confirmed </h2>
+
+        <p class="lead">
+          Your email has been successfully verified.
+        </p>
+
+        <p>
+          You can now log in and start using your account.
+        </p>
+
+        <a href="{% url 'account_login' %}" class="btn btn-success mt-3">
+          Sign In
+        </a>
+
+      {% else %}
+
+        <h2 class="mb-3 text-danger">Invalid or Expired Link </h2>
+
+        <p class="lead">
+          This confirmation link is no longer valid.
+        </p>
+
+        <p>
+          Please request a new email verification.
+        </p>
+
+        <a href="{% url 'account_login' %}" class="btn btn-outline-danger mt-3">
+          Back to Login
+        </a>
+
+      {% endif %}
+
+    </div>
+  </div>
+</section>
+{% endblock %}
