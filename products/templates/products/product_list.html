@@ -2,7 +2,6 @@
 
 {% block content %}
 
-<!-- PAGE HEADER -->
 <section class="bg-dark text-white text-center py-5">
     <div class="container">
         <h1 class="fw-bold">Shop Fitness Products</h1>
@@ -10,7 +9,6 @@
     </div>
 </section>
 
-<!-- FILTER -->
 <section class="container py-4">
     <h2 class="fw-bold mb-3">Filter Products</h2>
 
@@ -52,13 +50,6 @@
 {% endif %}
 
 <section class="container pb-5">
-    {% if request.user.is_staff %}
-    <div class="text-end mb-4">
-        <a href="{% url 'add_product' %}" class="btn btn-orange">
-            Add Product
-        </a>
-    </div>
-    {% endif %}
     <h2 class="fw-bold mb-4">Available Products</h2>
 
     <div class="row g-4">
