@@ -102,10 +102,6 @@ def checkout_success(request, order_id):
     return render(request, 'checkout/checkout_success.html', {'order': order})
 
 
-# ===============================
-# STRIPE WEBHOOK HANDLER
-# ===============================
-
 @csrf_exempt
 def stripe_webhook(request):
     payload = request.body
@@ -121,7 +117,6 @@ def stripe_webhook(request):
     except stripe.error.SignatureVerificationError:
         return HttpResponse(status=400)
 
-    # Handle event types
     if event['type'] == 'payment_intent.succeeded':
         intent = event['data']['object']
         handle_payment_intent_succeeded(intent)
@@ -154,10 +149,6 @@ def handle_payment_failed(intent):
     except Order.DoesNotExist:
         pass
 
-
-# ===============================
-# MEMBERSHIP / SUBSCRIPTIONS
-# ===============================
 
 def membership_pricing(request):
     return render(request, 'checkout/membership_pricing.html')

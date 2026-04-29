@@ -1,15 +1,6 @@
-/* ========================================
-   GLOBAL STYLES
-======================================== */
-
 body {
     font-family: Arial, sans-serif;
 }
-
-
-/* ========================================
-   NAVBAR
-======================================== */
 
 .navbar {
     background-color: #111 !important;
@@ -29,11 +20,6 @@ body {
     color: #f57c00 !important;
 }
 
-
-/* ========================================
-   BUTTONS
-======================================== */
-
 .btn-orange {
     background-color: #f57c00;
     color: #111;
@@ -43,11 +29,6 @@ body {
 .btn-orange:hover {
     background-color: #e56f00;
 }
-
-
-/* ========================================
-   HERO SECTION
-======================================== */
 
 .hero-section {
     height: 90vh;
@@ -65,11 +46,6 @@ body {
 .hero-section p {
     color: #ffff;
 }
-
-
-/* ========================================
-   CARDS
-======================================== */
 
 .card {
     border: none;
@@ -94,11 +70,6 @@ body {
 .card-footer {
     background: transparent;
 }
-
-
-/* ========================================
-   FORMS
-======================================== */
 
 form p {
     margin-bottom: 1rem;
@@ -132,11 +103,6 @@ textarea {
     resize: none;
 }
 
-
-/* ========================================
-   FOOTER
-======================================== */
-
 footer {
     background-color: #111;
     color: #fff;
@@ -161,10 +127,6 @@ footer a:hover {
     font-weight: 500;
 }
 
-/* ========================================
-   UTILITY CLASSES
-======================================== */
-
 .bg-dark {
     background-color: #111 !important;
 }
@@ -175,4 +137,28 @@ footer a:hover {
 
 .text-warning {
     color: #f57c00 !important;
+}
+
+.checkout-success-section {
+  min-height: 70vh;
+  display: flex;
+  align-items: center;
+  background: #f8f9fa;
+}
+
+.success-card {
+  max-width: 650px;
+  background: #ffffff;
+  border-radius: 20px;
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+}
+
+.success-card h2 {
+  color: #198754;
+  font-weight: 700;
+}
+
+.success-card .btn {
+  border-radius: 30px;
+  padding: 0.75rem 1.5rem;
 }

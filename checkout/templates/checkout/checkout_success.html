@@ -1,12 +1,30 @@
 {% extends "base.html" %}
 
 {% block content %}
-<div class="container py-5 text-center">
-    <h2 class="text-success mb-3">Payment Successful </h2>
-    <p class="lead">Thank you for your purchase.</p>
-    <p>Your payment has been completed successfully.</p>
-    <a href="{% url 'product_list' %}" class="btn btn-success mt-3">
+<section class="checkout-success-section py-5">
+  <div class="container">
+    <div class="success-card mx-auto text-center p-4 p-md-5">
+
+      {% if messages %}
+        <div class="mb-4">
+          {% for message in messages %}
+            <div class="alert alert-success alert-dismissible fade show shadow-sm rounded" role="alert">
+              <strong>Success!</strong> {{ message }}
+              <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+          {% endfor %}
+        </div>
+      {% endif %}
+
+      <h2 class="mb-3">Payment Successful</h2>
+      <p class="lead">Thank you for your purchase.</p>
+      <p>Your payment has been completed successfully.</p>
+
+      <a href="{% url 'product_list' %}" class="btn btn-success mt-3">
         Continue Shopping
-    </a>
-</div>
+      </a>
+
+    </div>
+  </div>
+</section>
 {% endblock %}
