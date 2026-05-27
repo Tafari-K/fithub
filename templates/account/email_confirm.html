@@ -7,31 +7,23 @@
 
       {% if confirmation %}
 
-        <h2 class="mb-3 text-success">Email Confirmed </h2>
+        <h2 class="mb-3 text-success">Confirm Your Email</h2>
 
         <p class="lead">
-          Your email has been successfully verified.
+          Please confirm that this email belongs to you.
         </p>
 
-        <p>
-          You can now log in and start using your account.
-        </p>
-
-        <a href="{% url 'account_login' %}" class="btn btn-success mt-3">
-          Sign In
-        </a>
+        <form method="post" action="{% url 'account_confirm_email' confirmation.key %}">
+          {% csrf_token %}
+          <button type="submit" class="btn btn-success mt-3">
+            Confirm Email
+          </button>
+        </form>
 
       {% else %}
 
-        <h2 class="mb-3 text-danger">Invalid or Expired Link </h2>
-
-        <p class="lead">
-          This confirmation link is no longer valid.
-        </p>
-
-        <p>
-          Please request a new email verification.
-        </p>
+        <h2 class="mb-3 text-danger">Invalid or Expired Link</h2>
+        <p>This confirmation link is no longer valid.</p>
 
         <a href="{% url 'account_login' %}" class="btn btn-outline-danger mt-3">
           Back to Login
